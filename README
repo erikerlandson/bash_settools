@@ -1,0 +1,29 @@
+============
+INTRODUCTION
+============
+bash settools are some convenience functions for manipulating file contents
+(by line) with set operations
+
+============
+INSTALLATION
+============
+To install bash settools, copy the file 'bash_settools' to your home directory, and then add the following line to your .bashrc file:
+
+if [ -f ~/bash_settools ]; then . ~/bash_settools; fi
+
+=============
+DOCUMENTATION
+=============
+# stU [<f1> ... ]
+# outputs union of "<f1> ..." (by line) to standard output
+# if no arguments are given, takes its input from standard input
+
+# stI [ <f1> ... ]
+# outputs intersection of "<f1> ..." (by line) to standard output
+# if no arguments are given, takes its input from standard input
+
+
+========
+EXAMPLES
+========
+To Do.

@@ -1,0 +1,50 @@
+# bash settools:  tools for manipulating files as sets, with set operations
+#
+# Copyright (c) 2010 Erik Erlandson
+#
+# Author:  Erik Erlandson <erikerlandson@yahoo.com>
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+# stU [<f1> ... ]
+# outputs union of "<f1> ..." (by line) to standard output
+# if no arguments are given, takes its input from standard input
+stU() {
+    if [ "$#" = "0" ]; then
+        sort | uniq
+        return
+    fi
+    local cmd="cat"
+    for a in "$@"; do
+        cmd="$cmd \"$a\""
+    done
+    cmd="$cmd | sort | uniq"
+    eval "$cmd"
+}
+
+# stI [ <f1> ... ]
+# outputs intersection of "<f1> ..." (by line) to standard output
+# if no arguments are given, takes its input from standard input
+stI() {
+    if [ "$#" = "0" ]; then
+        sort | uniq -d
+        return
+    fi
+    local t=`mktemp`
+    for a in "$@"; do
+        cat "$a" | sort | uniq >> "$t"
+    done
+    cat "$t" | sort | uniq -d
+    rm "$t"
+}
